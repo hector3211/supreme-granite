@@ -1,0 +1,79 @@
+import { useState } from "react";
+import {
+  GalleryHorizontalEnd,
+  Home,
+  Mail,
+  Menu,
+  Tag,
+  User,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "./ui/button";
+
+const navItems = [
+  { name: "Home", href: "/", icon: <Home /> },
+  { name: "Products", href: "/products", icon: <Tag /> },
+  { name: "Gallery", href: "/gallery", icon: <GalleryHorizontalEnd /> },
+  { name: "About", href: "/#about", icon: <User /> },
+  { name: "Contact", href: "/#contact", icon: <Mail /> },
+];
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50">
+      <div className="bg-yellow-500 bg-opacity-90 backdrop-blur-sm shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex-shrink-0">
+              <a href="/" className="text-2xl font-extrabold text-zinc-800">
+                <h1>Depot Granite</h1>
+              </a>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-zinc-800 hover:text-zinc-900 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="md:hidden">
+              <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+                <DropdownMenuTrigger asChild>
+                  <Button size={"icon"} variant={"outline"}>
+                    <Menu />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-40" align="end">
+                  {navItems.map((item) => (
+                    <DropdownMenuItem key={item.name} asChild>
+                      <a
+                        href={item.href}
+                        className="text-zinc-800 hover:text-zinc-900 cursor-pointer w-full"
+                      >
+                        {item.icon}
+                        {item.name}
+                      </a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}

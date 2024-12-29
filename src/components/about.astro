@@ -1,0 +1,53 @@
+---
+import { Button } from "@/components/ui/button";
+import { Image } from "astro:assets";
+import AboutImag from "@/assets/depot-one.jpg";
+---
+
+<section id="about" class="py-16 bg-gray-100 min-h-[36rem] scroll-mt-52">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <Image
+                    width={600}
+                    height={400}
+                    src={AboutImag}
+                    alt="Our workshop"
+                    class="rounded-lg shadow-lg"
+                />
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+                <h2 class="text-3xl font-bold mb-4">About Depot Granite</h2>
+                <p class="mb-6 text-gray-600">
+                    We aim to provide a custom experience by guiding our
+                    customers through every step of the process. Our customers
+                    get to walk through our slab yard and pick out the exact
+                    stone that’ll be cut and turned into a piece of their home.
+                    Our salespeople are extremely knowledgeable and can answer
+                    any and all questions that you may have, and our installers
+                    are all professionals of the highest caliber and will make
+                    sure that by the time they leave your home it looks better
+                    than when they arrived. Our mission is to provide the
+                    quickest fabrication timelines, highest quality
+                    installations, and the largest selection of materials for
+                    any countertop project they can dream of.
+                </p>
+                <p class="mb-6 text-gray-600">
+                    We are constantly finding ways to improve our customer
+                    service as well as offering a satisfaction guarantee. Our
+                    services vary so we can cover most of your needs made by
+                    different brands in the market, American or European made.
+                    We are fabricators and installers of the following brand
+                    materials: Granite, Curava, Cosentino, Sensa, Marble,
+                    Travertine, Dekton, Silestone, Viatera, Ceasarstone,
+                    Cambria, Quartz, and others. Our promise is to deliver an
+                    unrivaled customer experience, by employing highly skilled
+                    and well trained experts that provide superior, quality
+                    craftsmanship. Visit our showroom. Choose your countertops
+                    today.
+                </p>
+                <Button>Learn More About Us</Button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import GalleryCatalog from "@/components/gallery-catalog.tsx";
+---
+
+<Layout>
+    <main class="my-20 p-10">
+        <h2 class="text-3xl font-bold mb-8 text-center">Recent Jobs</h2>
+        <GalleryCatalog client:load />
+    </main>
+</Layout>

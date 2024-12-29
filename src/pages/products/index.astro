@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Products from "@/components/products-catalog.tsx";
+---
+
+<Layout>
+    <main class="my-20 p-10">
+        <h2 class="text-3xl font-bold mb-8 text-center">Products</h2>
+        <Products client:load />
+    </main>
+</Layout>

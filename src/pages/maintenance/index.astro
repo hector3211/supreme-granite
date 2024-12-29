@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Img from "@/assets/depot-one.jpg";
+---
+
+<Layout>
+    <main class="my-20 container mx-auto max-w-5xl p-10">
+        <h2 class="text-3xl font-bold mb-8 text-center">Maintenance</h2>
+        <img
+            width={900}
+            height={600}
+            src={Img.src}
+            alt="maintenance image"
+            class="rounded-md mx-auto"
+        />
+        <div class="container mx-auto my-10">
+            <h3 class="text-2xl font-bold mb-8">Cleaning</h3>
+            <span class="text-justify">
+                All natural stone products are subject to damage if not cared
+                for properly. For normal housekeeping, clean using clear warm
+                water or a pH neutral stone cleaner on a regular basis to remove
+                residue from everyday spills such as food, hairspray, or
+                cosmetics. No other soaps, detergents, or cleaners should be
+                used on natural stone. Be careful with common foods and drinks
+                that contain acids that may etch or dull the stone’s surface.
+                Some common toiletries (i.e. perfume, toothpaste, mouthwash) may
+                contain acids and other ingredients that may damage the stone
+                surface or degrade the sealer if not cleaned in a timely manner.
+            </span>
+        </div>
+        <div class="container mx-auto my-10">
+            <h3 class="text-2xl font-bold mb-8">Sealing</h3>
+            <span class="text-justify">
+                The purpose of a sealer is to increase stain resistance so that
+                the natural stone repels dirt and water. The sealer penetrates
+                the stone, thereby, reducing absorption of dirt and staining
+                agents. Sealing will not eliminate all staining. Spills should
+                be wiped off immediately to prevent stains from settling into
+                the stone. It is recommended to apply sealers periodically. A
+                sealer must be used made specifically for marble and granite.
+                Use a type of sealer that is penetrating (invisible) and does
+                not leave a film on the surface.
+            </span>
+        </div>
+    </main>
+</Layout>

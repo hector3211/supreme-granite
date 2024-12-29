@@ -1,0 +1,101 @@
+---
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import HeroImg from "@/assets/depot-one-big.jpg";
+import { Image } from "astro:assets";
+import { Separator } from "@/components/ui/separator";
+
+const formMessage = { error: "", success: "" };
+if (Astro.request.method === "POST") {
+    try {
+        const data = await Astro.request.formData();
+        const email = data.get("email");
+        setTimeout(() => {
+            formMessage.success = "Success";
+        }, 3000);
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
+---
+
+<section class="relative h-screen overflow-hidden w-full">
+    {/* Background Image */}
+    <Image
+        src={HeroImg}
+        width={5000}
+        height={1080}
+        alt="Granite background"
+        class="absolute z-0 object-cover h-[calc(100vh-0rem)] w-full"
+    />
+    {/* Overlay */}
+    <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+    {/* Content */}
+    <div
+        class="hidden md:block mx-3 bg-gradient-to-br from-yellow-500 to-orange-400 p-8 rounded-md relative top-[35%] right-0 md:right-[10%] lg:ml-auto z-20 text-white px-4 sm:px-6 lg:px-8 max-w-xl"
+    >
+        <h1
+            class="text-4xl text-center sm:text-5xl md:text-6xl font-extrabold mb-4"
+        >
+            Depot Granite
+        </h1>
+        <p class="text-xl mb-8 max-w-3xl text-center">
+            Transforming spaces with nature's finest stone. Quality, durability,
+            and elegance in every slab.
+        </p>
+        <Separator className="my-4" />
+        {/* Newsletter Subscription */}
+        <div class="w-full mx-auto mt-5">
+            <h3 class="text-3xl text-center font-bold my-3">News Letter</h3>
+            <form method="POST">
+                <div
+                    class="container mx-auto mb-3 items-center space-y-4 sm:flex sm:space-y-0"
+                >
+                    <div class="relative w-full">
+                        <label
+                            class="mb-2 hidden text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                            Email address
+                        </label>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                        >
+                            <svg
+                                class="h-5 w-5 text-gray-500 dark:text-gray-400"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                                ></path>
+                                <path
+                                    d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <Input
+                            className="rounded-r-none pl-10"
+                            placeholder="Enter your email"
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                        />
+                    </div>
+                    <div class="z-40">
+                        <Button
+                            type="submit"
+                            className="w-full rounded-md md:h-10 md:w-fit md:rounded-l-none"
+                        >
+                            Subscribe
+                        </Button>
+                    </div>
+                </div>
+            </form>
+            {formMessage.success && <p>formMessage.success</p>}
+        </div>
+    </div>
+</section>
