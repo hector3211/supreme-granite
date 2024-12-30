@@ -32,7 +32,7 @@ if (Astro.request.method === "POST") {
         class="absolute z-0 object-cover h-[calc(100vh-0rem)] w-full"
     />
     {/* Overlay */}
-    <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+    <div class="absolute inset-0 bg-zinc-600 bg-opacity-40 z-10"></div>
     {/* Content */}
     <div
         class="hidden md:block relative top-[35%] mx-auto md:top-[35%] z-20 text-gray-50 px-4 sm:px-6 lg:px-8 max-w-3xl"
@@ -42,18 +42,24 @@ if (Astro.request.method === "POST") {
         >
             Depot Granite
         </h1>
-        <p class="text-xl mb-8 max-w-lg mx-auto text-center">
+        <p
+            class="text-xl mb-8 max-w-lg mx-auto text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
+        >
             Transforming spaces with nature's finest stone. Quality, durability,
             and elegance in every slab
         </p>
         <section
             class="flex items-center space-x-4 mx-auto max-w-md text-muted"
         >
-            <span class="flex space-x-2">
+            <span
+                class="flex space-x-2 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
+            >
                 <Phone />
                 <p>727-896-9661</p>
             </span>
-            <span class="flex items-center space-x-2">
+            <span
+                class="flex items-center space-x-2 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
+            >
                 <Clock />
                 <p>mon-fri 8am-5pm</p>
                 <Separator orientation="vertical" className="h-4" />
@@ -63,7 +69,11 @@ if (Astro.request.method === "POST") {
         <Separator className="my-4 max-w-md mx-auto" />
         {/* Newsletter Subscription */}
         <div class="max-w-xl mx-auto mt-5">
-            <h3 class="text-3xl text-center font-bold my-3">News Letter</h3>
+            <h3
+                class="text-3xl text-center font-bold my-3 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.3)]"
+            >
+                News Letter
+            </h3>
             <form method="POST" class="relative">
                 <div
                     class="container mx-auto mb-3 items-center space-y-4 sm:flex sm:space-y-0"

@@ -148,7 +148,7 @@ export default function Products() {
         </div>
       </div>
       {sortedProducts.length ? (
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 2xl:grid-cols-3">
           {sortedProducts.map((product) => (
             <Card key={product.id} className="container">
               <CardHeader>
@@ -158,9 +158,9 @@ export default function Products() {
                 <img
                   src={product.image}
                   alt={product.name}
-                  width={300}
-                  height={200}
-                  className="w-full h-[30rem] rounded-md object-cover"
+                  width={700}
+                  height={600}
+                  className="w-[700px] 2xl:w-full 2xl:h-[30rem] rounded-md object-cover"
                 />
                 <p className="mt-4 text-lg font-semibold">
                   ${product.price.toFixed(2)} per sq ft

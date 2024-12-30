@@ -91,7 +91,7 @@ export default function SalesBanner({
 
   return (
     <div
-      className="fixed bottom-10 left-4 right-4 z-[100] max-w-2xl mx-auto"
+      className="fixed bottom-5 left-4 right-4 z-[100] max-w-2xl mx-auto"
       aria-live="polite"
     >
       <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white p-4 rounded-lg shadow-2xl flex items-center justify-between relative">
