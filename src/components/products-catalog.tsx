@@ -19,6 +19,7 @@ import ImgThree from "@/assets/soft-white-marble.jpg";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
+import { useDebounce } from "@/lib/hooks";
 
 const products = [
   {
@@ -69,6 +70,7 @@ export default function Products() {
   const [sortOrder, setSortOrder] = useState("name-asc");
   const [selectedMaterial, setSelectedMaterial] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const materials = ["all", ...new Set(products.map((p) => p.material))];
 
@@ -77,7 +79,7 @@ export default function Products() {
       selectedMaterial === "all" || product.material === selectedMaterial;
     const matchesSearch = product.name
       .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+      .includes(debouncedSearchQuery.toLowerCase());
     return matchesMaterial && matchesSearch;
   });
 
@@ -97,7 +99,7 @@ export default function Products() {
   });
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="flex justify-between gap-4 p-4 rounded-lg my-5">
         <div className="relative container mx-auto">
           <Input
@@ -108,6 +110,9 @@ export default function Products() {
             className="pl-10"
           />
           <Search className="absolute left-10 top-2 size-6 text-gray-400" />
+          {!sortedProducts.length && (
+            <p className="mt-1 font-medium">No matches found...</p>
+          )}
         </div>
         <div className="flex items-center gap-3">
           <div className="min-w-[200px]">
@@ -142,30 +147,32 @@ export default function Products() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-        {sortedProducts.map((product) => (
-          <Card key={product.id} className="container">
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <img
-                src={product.image}
-                alt={product.name}
-                width={300}
-                height={200}
-                className="w-full h-[30rem] rounded-md object-cover"
-              />
-              <p className="mt-4 text-lg font-semibold">
-                ${product.price.toFixed(2)} per sq ft
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">Request Quote</Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      {sortedProducts.length ? (
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+          {sortedProducts.map((product) => (
+            <Card key={product.id} className="container">
+              <CardHeader>
+                <CardTitle>{product.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  width={300}
+                  height={200}
+                  className="w-full h-[30rem] rounded-md object-cover"
+                />
+                <p className="mt-4 text-lg font-semibold">
+                  ${product.price.toFixed(2)} per sq ft
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">Request Quote</Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

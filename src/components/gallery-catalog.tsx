@@ -125,7 +125,7 @@ export default function GalleryCatalog() {
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-md xl:max-w-lg">
               <DialogHeader>
                 <DialogTitle>{project.title}</DialogTitle>
                 <DialogDescription>

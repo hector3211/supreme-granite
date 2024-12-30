@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import HeroImg from "@/assets/depot-one-big.jpg";
 import { Image } from "astro:assets";
 import { Separator } from "@/components/ui/separator";
-import { Clock, MapPin, Phone } from "lucide-react";
+import { Clock, Phone } from "lucide-react";
 
 const formMessage = { error: "", success: "" };
 if (Astro.request.method === "POST") {
@@ -38,7 +38,7 @@ if (Astro.request.method === "POST") {
         class="hidden md:block relative top-[35%] mx-auto md:top-[35%] z-20 text-gray-50 px-4 sm:px-6 lg:px-8 max-w-3xl"
     >
         <h1
-            class="text-4xl text-transparent bg-gradient-to-br from-yellow-400 to-orange-500 bg-clip-text text-center sm:text-5xl md:text-7xl font-extrabold mb-4"
+            class="text-4xl text-transparent bg-gradient-to-br from-yellow-500 from-[60%] to-orange-500 bg-clip-text text-center sm:text-5xl md:text-7xl font-extrabold mb-4"
         >
             Depot Granite
         </h1>

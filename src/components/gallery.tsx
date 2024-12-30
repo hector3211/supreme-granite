@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Img from "@/assets/depot-one.jpg";
 import ImgTwo from "@/assets/depot-two.jpg";
@@ -74,7 +73,7 @@ export default function GallerySection() {
                   alt={item.alt}
                   width={800}
                   height={600}
-                  className="w-full h-auto"
+                  className="w-full h-auto rounded-md"
                 />
                 <h3 className="text-xl font-semibold mt-4">{item.title}</h3>
               </DialogContent>
