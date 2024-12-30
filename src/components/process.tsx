@@ -13,7 +13,7 @@ export default function ProcessSection() {
     {
       title: "Measurement",
       description:
-        "Our careful technicians come to your home and create a precise digital template so we can build custom countertops that fit perfectly into your space. ",
+        "Our skilled technicians visit your home to create a precise digital template, ensuring custom countertops fit seamlessly into your space. We pride ourselves on delivering craftsmanship that exceeds expectations.",
     },
     {
       title: "Fabrication",

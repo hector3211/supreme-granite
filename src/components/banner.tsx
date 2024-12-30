@@ -113,8 +113,8 @@ export default function SalesBanner({
                 New Year Special: Get 20% Off Today!
               </h3>
               <p className="text-sm mt-1">
-                Order now and get 20% off all on level two or level Three
-                material. Limited time offer!
+                Order now and get 20% off on level two or level Three materials.
+                Limited time offer!
               </p>
             </div>
           </div>
