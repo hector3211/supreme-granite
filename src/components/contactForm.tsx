@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, Send } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CircleCheck, Loader2, Send, XCircle } from "lucide-react";
 import { Label } from "./ui/label";
 
 type FormData = {
@@ -21,7 +27,6 @@ type FormErrors = {
 
 export default function ContactForm() {
   const [isPending, setIsPending] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -30,6 +35,8 @@ export default function ContactForm() {
     honeypot: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [status, setStatus] = useState({ type: "", message: "" });
+  const [popUp, setPopUp] = useState(false);
 
   const formReset = (): void => {
     formData.name = "";
@@ -92,7 +99,6 @@ export default function ContactForm() {
 
     // If honeypot field is filled, silently reject
     if (formData.honeypot) {
-      setSubmitted(true);
       return;
     }
 
@@ -101,15 +107,22 @@ export default function ContactForm() {
     }
 
     setIsPending(true);
-
     try {
-      // Here you would typically send the data to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated API call
-      setSubmitted(true);
-      formReset();
+      setTimeout(() => {
+        setStatus({
+          type: "success",
+          message: "Message sent!",
+        });
+        formReset();
+        setPopUp(true);
+      }, 1000);
     } catch (error) {
       setErrors({
         message: "Failed to send message. Please try again.",
+      });
+      setStatus({
+        type: "error",
+        message: "Something went wrong, Please try again later",
       });
     } finally {
       setIsPending(false);
@@ -117,112 +130,113 @@ export default function ContactForm() {
   };
 
   useEffect(() => {
-    if (submitted) {
-      const counter = setTimeout(() => {
-        setSubmitted(false);
+    if (popUp) {
+      const timmer = setTimeout(() => {
+        status.type = "";
+        status.message = "";
+        setPopUp(false);
       }, 3000);
-      return () => clearTimeout(counter);
+      return () => clearTimeout(timmer);
     }
-  }, [submitted]);
+  }, [popUp]);
 
   return (
-    <div id="contact" className="bg-gray-50 py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center">
-          Get In Contact Today
-        </h2>
-      </div>
-      <Card className="container mx-auto max-w-4xl bg-transparent border-none shadow-none">
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label className="my-2">Name</Label>
-              <Input
-                name="name"
-                placeholder="Enter your name here"
-                value={formData.name}
-                onChange={handleChange}
-                className={errors.name ? "border-red-500" : ""}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-              )}
-            </div>
-
-            <div>
-              <Label className="my-2">Email</Label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Enter your email here"
-                value={formData.email}
-                onChange={handleChange}
-                className={errors.email ? "border-red-500" : ""}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <Label className="my-2">Phone Number</Label>
-              <Input
-                name="phone"
-                type="tel"
-                placeholder="Enter your phone number here"
-                value={formData.phone}
-                onChange={handleChange}
-                className={errors.phone ? "border-red-500" : ""}
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-              )}
-            </div>
-
-            <div>
-              <Label className="my-2">Message</Label>
-              <Textarea
-                name="message"
-                placeholder="I have 45 sqft I'm wondering...."
-                value={formData.message}
-                onChange={handleChange}
-                className={errors.message ? "border-red-500" : ""}
-              />
-              {errors.message && (
-                <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-              )}
-            </div>
-
-            {/* Honeypot field (hidden to users) */}
+    <Card className="contianer w-full lg:w-2/5">
+      <CardHeader>
+        <CardTitle className="text-3xl font-bold">Contact Us</CardTitle>
+        <CardDescription>Get in touch with our granite experts</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label className="my-2">Name</Label>
             <Input
-              name="honeypot"
-              type="text"
-              className="hidden"
-              tabIndex={-1}
-              autoComplete="off"
-              value={formData.honeypot}
+              name="name"
+              placeholder="Enter your name here"
+              value={formData.name}
               onChange={handleChange}
+              className={errors.name ? "border-red-500" : ""}
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
+          </div>
 
-            <Button
-              type="submit"
-              disabled={isPending}
-              className="w-full md:w-32 gap-2"
-            >
-              {isPending ? <Loader2 className="animate-spin" /> : <Send />}
-              <span>{isPending ? "Sending" : "Send"}</span>
-            </Button>
-          </form>
+          <div>
+            <Label className="my-2">Email</Label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter your email here"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? "border-red-500" : ""}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
 
-          {submitted && (
-            <Alert className="mt-4">
-              <AlertDescription>
-                Thank you for your message. We'll get back to you soon!
-              </AlertDescription>
-            </Alert>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+          <div>
+            <Label className="my-2">Phone Number</Label>
+            <Input
+              name="phone"
+              type="tel"
+              placeholder="Enter your phone number here"
+              value={formData.phone}
+              onChange={handleChange}
+              className={errors.phone ? "border-red-500" : ""}
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+            )}
+          </div>
+
+          <div>
+            <Label className="my-2">Message</Label>
+            <Textarea
+              name="message"
+              placeholder="I have 45 sqft I'm wondering...."
+              value={formData.message}
+              onChange={handleChange}
+              className={errors.message ? "border-red-500" : ""}
+            />
+            {errors.message && (
+              <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+            )}
+          </div>
+
+          {/* Honeypot field (hidden to users) */}
+          <Input
+            name="honeypot"
+            type="text"
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.honeypot}
+            onChange={handleChange}
+          />
+
+          <Button type="submit" disabled={isPending} className="w-full">
+            {isPending ? <Loader2 className="animate-spin" /> : <Send />}
+            <span>{isPending ? "Sending" : "Send"}</span>
+          </Button>
+        </form>
+
+        <Alert
+          className={`fixed bottom-5 right-0 max-w-md h-[5rem] transition-all duration-500 ease-in-out transform ${
+            popUp ? "-translate-x-10 opacity-100" : "translate-x-full opacity-0"
+          }`}
+        >
+          {status.type === "error" ? <XCircle /> : <CircleCheck />}
+          <AlertTitle>
+            {status.type === "error" ? "Oops" : "Success"}
+          </AlertTitle>
+          <AlertDescription className="font-medium">
+            {status.message}
+          </AlertDescription>
+        </Alert>
+      </CardContent>
+    </Card>
   );
 }

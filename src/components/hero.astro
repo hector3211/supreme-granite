@@ -1,25 +1,9 @@
 ---
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import HeroImg from "@/assets/depot-one-big.jpg";
 import { Image } from "astro:assets";
 import { Separator } from "@/components/ui/separator";
 import { Clock, Phone } from "lucide-react";
-
-const formMessage = { error: "", success: "" };
-if (Astro.request.method === "POST") {
-    try {
-        const data = await Astro.request.formData();
-        const email = data.get("email");
-        setTimeout(() => {
-            formMessage.success = "Success";
-        }, 3000);
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message);
-        }
-    }
-}
+import NewsLetter from "@/components/news-letter.tsx";
 ---
 
 <section class="relative h-screen overflow-hidden w-full">
@@ -32,7 +16,7 @@ if (Astro.request.method === "POST") {
         class="absolute z-0 object-cover h-[calc(100vh-0rem)] w-full"
     />
     {/* Overlay */}
-    <div class="absolute inset-0 bg-zinc-600 bg-opacity-40 z-10"></div>
+    <div class="absolute inset-0 bg-zinc-700 bg-opacity-40 z-10"></div>
     {/* Content */}
     <div
         class="hidden md:block relative top-[35%] mx-auto md:top-[35%] z-20 text-gray-50 px-4 sm:px-6 lg:px-8 max-w-3xl"
@@ -74,56 +58,7 @@ if (Astro.request.method === "POST") {
             >
                 News Letter
             </h3>
-            <form method="POST" class="relative">
-                <div
-                    class="container mx-auto mb-3 items-center space-y-4 sm:flex sm:space-y-0"
-                >
-                    <div class="relative w-full">
-                        <label
-                            class="mb-2 hidden text-sm font-medium text-zinc-900 dark:text-zinc-300"
-                        >
-                            Email address
-                        </label>
-                        <div
-                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-                        >
-                            <svg
-                                class="h-5 w-5 text-gray-500 dark:text-gray-400"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-                                ></path>
-                                <path
-                                    d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-                                ></path>
-                            </svg>
-                        </div>
-                        <Input
-                            className="rounded-r-none pl-10"
-                            placeholder="Enter your email"
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                        />
-                    </div>
-                    <div class="z-40">
-                        <Button
-                            type="submit"
-                            className="w-full rounded-md md:h-10 md:w-fit md:rounded-l-none"
-                        >
-                            Subscribe
-                        </Button>
-                    </div>
-                </div>
-                <p class="relative left-9 -top-2 text-sm text-muted">
-                    Subscribe now to get notified about exclusive discounts
-                </p>
-            </form>
-            {formMessage.success && <p>formMessage.success</p>}
+            <NewsLetter client:load />
         </div>
     </div>
 </section>
