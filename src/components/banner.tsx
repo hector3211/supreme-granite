@@ -94,7 +94,7 @@ export default function SalesBanner({
       className="fixed bottom-5 left-4 right-4 z-[100] max-w-2xl mx-auto"
       aria-live="polite"
     >
-      <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white p-4 rounded-lg shadow-2xl flex items-center justify-between relative">
+      <div className="bg-gradient-to-br from-gray-300 to-gray-400 p-4 rounded-lg shadow-2xl flex items-center justify-between relative">
         {/* Close Button */}
         <button
           onClick={handleDismiss}
@@ -107,7 +107,7 @@ export default function SalesBanner({
         {/* Banner Content */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
           <div className="flex items-center space-x-4">
-            <Gift className="h-10 w-10 text-white" />
+            <Gift className="size-10" />
             <div>
               <h3 className="font-bold text-lg">
                 New Year Special: Get 20% Off Today!

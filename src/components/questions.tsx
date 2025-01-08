@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "./ui/button";
 
 export default function Questions() {
   return (
@@ -16,7 +15,7 @@ export default function Questions() {
         <Accordion className="pt-5 max-w-4xl mx-auto" type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-lg md:text-2xl">
-              What stone does Depot Granite carry?
+              What stone does Supreme Granite carry?
             </AccordionTrigger>
             <AccordionContent className="text-zinc-500 text-md md:text-lg">
               We currently carry a wide variety of over 200 colors of natural

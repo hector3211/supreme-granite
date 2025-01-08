@@ -141,7 +141,10 @@ export default function ContactForm() {
   }, [popUp]);
 
   return (
-    <Card className="contianer w-full lg:w-2/5">
+    <Card
+      id="contact"
+      className="contianer mx-auto max-w-4xl border-none shadow-none bg-transparent py-16"
+    >
       <CardHeader>
         <CardTitle className="text-3xl font-bold">Contact Us</CardTitle>
         <CardDescription>Get in touch with our granite experts</CardDescription>
@@ -217,7 +220,7 @@ export default function ContactForm() {
             onChange={handleChange}
           />
 
-          <Button type="submit" disabled={isPending} className="w-full">
+          <Button type="submit" disabled={isPending} className="w-28">
             {isPending ? <Loader2 className="animate-spin" /> : <Send />}
             <span>{isPending ? "Sending" : "Send"}</span>
           </Button>

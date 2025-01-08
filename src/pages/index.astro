@@ -7,8 +7,8 @@ import GallerySection from "@/components/gallery.tsx";
 import Cta from "@/components/cta.astro";
 import ReviewSection from "@/components/reviews.tsx";
 import Questions from "@/components/questions.tsx";
-import Map from "@/components/map.astro";
 import Layout from "../layouts/Layout.astro";
+import ContactForm from "@/components/contactForm.tsx";
 ---
 
 <Layout>
@@ -21,6 +21,6 @@ import Layout from "../layouts/Layout.astro";
         <Cta />
         <Questions client:load />
         <ReviewSection client:load />
-        <Map />
+        <ContactForm client:load />
     </main>
 </Layout>

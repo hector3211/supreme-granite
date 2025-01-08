@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CircleCheck, Terminal, XCircle } from "lucide-react";
+import { CircleCheck, XCircle } from "lucide-react";
 
 export default function NewsLetter() {
   const [email, setEmail] = useState("");
@@ -109,7 +109,7 @@ export default function NewsLetter() {
             </Button>
           </div>
         </div>
-        <p className="relative left-9 -top-2 text-sm text-muted">
+        <p className="relative left-9 -top-2 text-sm text-muted-foreground">
           Subscribe now to get notified about exclusive discounts. Unsubscribe
           any time.
         </p>

@@ -1,64 +1,37 @@
 ---
-import HeroImg from "@/assets/depot-one-big.jpg";
-import { Image } from "astro:assets";
 import { Separator } from "@/components/ui/separator";
-import { Clock, Phone } from "lucide-react";
 import NewsLetter from "@/components/news-letter.tsx";
+import GridBg from "@/assets/grid-bg.svg";
+import { Image } from "astro:assets";
 ---
 
-<section class="relative h-screen overflow-hidden w-full">
-    {/* Background Image */}
-    <Image
-        src={HeroImg}
-        width={5000}
-        height={1080}
-        alt="Granite background"
-        class="absolute z-0 object-cover h-[calc(100vh-0rem)] w-full"
-    />
-    {/* Overlay */}
-    <div class="absolute inset-0 bg-zinc-700 bg-opacity-40 z-10"></div>
-    {/* Content */}
+<div class="relative h-screen w-full pt-20 flex flex-row-reverse">
+    <div class="absolute z-0 w-full opacity-20 overflow-hidden">
+        <Image
+            src={GridBg}
+            width={5000}
+            height={1200}
+            alt={"gid background"}
+            class={"w-full object-cover h-[calc(100vh-5rem)] lg:h-[calc(100vh-50rem)] overflow-hidden opacity-5"}
+        />
+    </div>
     <div
-        class="hidden md:block relative top-[35%] mx-auto md:top-[35%] z-20 text-gray-50 px-4 sm:px-6 lg:px-8 max-w-3xl"
+        class="relative top-[25%] mx-auto md:top-[30%] z-20 px-4 sm:px-6 lg:px-8"
     >
-        <h1
-            class="text-4xl text-transparent bg-gradient-to-br from-yellow-500 from-[60%] to-orange-500 bg-clip-text text-center sm:text-5xl md:text-7xl font-extrabold mb-4"
-        >
-            Depot Granite
-        </h1>
-        <p
-            class="text-xl mb-8 max-w-lg mx-auto text-center [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
-        >
+        <section class="max-w-5xl">
+            <h1 class="text-4xl sm:text-5xl md:text-8xl font-bold mb-4">
+                Timeless Elegance With Supreme Granite
+            </h1>
+        </section>
+        <p class="text-xl font-extralight mb-8 max-w-lg mx-auto text-center">
             Transforming spaces with nature's finest stone. Quality, durability,
             and elegance in every slab
         </p>
-        <section
-            class="flex items-center space-x-4 mx-auto max-w-md text-muted"
-        >
-            <span
-                class="flex space-x-2 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
-            >
-                <Phone />
-                <p>727-896-9661</p>
-            </span>
-            <span
-                class="flex items-center space-x-2 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.4)]"
-            >
-                <Clock />
-                <p>mon-fri 8am-5pm</p>
-                <Separator orientation="vertical" className="h-4" />
-                <p>sat 9am-2pm</p>
-            </span>
-        </section>
         <Separator className="my-4 max-w-md mx-auto" />
         {/* Newsletter Subscription */}
         <div class="max-w-xl mx-auto mt-5">
-            <h3
-                class="text-3xl text-center font-bold my-3 [text-shadow:_0_2px_4px_rgb(0_0_0_/_0.3)]"
-            >
-                News Letter
-            </h3>
+            <h3 class="text-3xl text-center font-bold my-3">News Letter</h3>
             <NewsLetter client:load />
         </div>
     </div>
-</section>
+</div>
