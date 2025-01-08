@@ -155,7 +155,7 @@ export default function ContactForm() {
             <Label className="my-2">Name</Label>
             <Input
               name="name"
-              placeholder="Enter your name here"
+              placeholder="John Doe"
               value={formData.name}
               onChange={handleChange}
               className={errors.name ? "border-red-500" : ""}
@@ -170,7 +170,7 @@ export default function ContactForm() {
             <Input
               name="email"
               type="email"
-              placeholder="Enter your email here"
+              placeholder="Johndoe@gmail.com"
               value={formData.email}
               onChange={handleChange}
               className={errors.email ? "border-red-500" : ""}
@@ -185,7 +185,7 @@ export default function ContactForm() {
             <Input
               name="phone"
               type="tel"
-              placeholder="Enter your phone number here"
+              placeholder="123-456-7890"
               value={formData.phone}
               onChange={handleChange}
               className={errors.phone ? "border-red-500" : ""}
