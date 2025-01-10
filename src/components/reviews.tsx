@@ -11,7 +11,7 @@ interface Review {
 const reviews: Review[] = [
   {
     id: 1,
-    name: "Danielle D",
+    name: "John D",
     rating: 5,
     bg: "bg-pink-500",
     comment:
@@ -19,7 +19,7 @@ const reviews: Review[] = [
   },
   {
     id: 2,
-    name: "Cynthia Wingard",
+    name: "Jane W",
     rating: 5,
     bg: "bg-blue-300",
     comment:
@@ -27,7 +27,7 @@ const reviews: Review[] = [
   },
   {
     id: 3,
-    name: "Jeff N",
+    name: "Casey N",
     rating: 5,
     bg: "bg-teal-500",
     comment:
@@ -35,7 +35,7 @@ const reviews: Review[] = [
   },
   {
     id: 4,
-    name: "Shannon A",
+    name: "Joe A",
     rating: 5,
     bg: "bg-blue-500",
     comment:
