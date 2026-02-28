@@ -30,8 +30,7 @@ export default function NewsLetter() {
   useEffect(() => {
     if (popUp) {
       const timmer = setTimeout(() => {
-        status.type = "";
-        status.message = "";
+        setStatus({ type: "", message: "" });
         setPopUp(false);
       }, 3000);
       return () => clearTimeout(timmer);
@@ -74,7 +73,7 @@ export default function NewsLetter() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="relative">
-        <div className="container mx-auto mb-3 items-center space-y-4 sm:flex sm:space-y-0">
+        <div className="mb-3 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
           <div className="relative w-full">
             <label className="mb-2 hidden text-sm font-medium text-zinc-900 dark:text-zinc-300">
               Email address
@@ -91,7 +90,7 @@ export default function NewsLetter() {
               </svg>
             </div>
             <Input
-              className="rounded-r-none pl-10"
+              className="pl-10 sm:rounded-r-none"
               placeholder="Enter your email"
               name="email"
               type="email"
@@ -100,16 +99,16 @@ export default function NewsLetter() {
               required
             />
           </div>
-          <div className="z-40">
+          <div className="z-40 sm:self-stretch">
             <Button
               type="submit"
-              className="w-full rounded-md md:h-10 md:w-fit md:rounded-l-none"
+              className="h-10 w-full rounded-md sm:h-full sm:w-auto sm:rounded-l-none"
             >
               {isPending ? "Subscribing" : "Subscribe"}
             </Button>
           </div>
         </div>
-        <p className="relative left-9 -top-2 text-sm text-muted-foreground">
+        <p className="px-1 text-sm text-muted-foreground">
           Subscribe now to get notified about exclusive discounts. Unsubscribe
           any time.
         </p>
