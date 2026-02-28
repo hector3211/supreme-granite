@@ -110,27 +110,27 @@ export default function Products() {
 
   return (
     <div className="min-h-screen">
-      <div className="flex justify-between gap-4 p-4 rounded-lg my-5">
-        <div className="relative container mx-auto">
+      <div className="my-5 flex flex-col gap-3 rounded-lg py-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full">
           <Input
             type="text"
             placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="h-11 pl-10"
           />
-          <Search className="absolute left-10 top-2 size-6 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
           {!sortedProducts.length && (
             <p className="mt-1 font-medium">No matches found...</p>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <div className="min-w-[200px]">
+        <div className="grid w-full grid-cols-1 gap-3 sm:flex sm:w-auto sm:items-center">
+          <div className="w-full sm:min-w-[180px]">
             <Select
               value={selectedMaterial}
               onValueChange={setSelectedMaterial}
             >
-              <SelectTrigger>
+              <SelectTrigger className="h-11">
                 <SelectValue placeholder="Filter by material" />
               </SelectTrigger>
               <SelectContent>
@@ -142,9 +142,9 @@ export default function Products() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex-1 min-w-[200px]">
+          <div className="w-full sm:min-w-[180px]">
             <Select value={sortOrder} onValueChange={setSortOrder}>
-              <SelectTrigger>
+              <SelectTrigger className="h-11">
                 <SelectValue placeholder="Sort by..." />
               </SelectTrigger>
               <SelectContent>
@@ -158,9 +158,9 @@ export default function Products() {
         </div>
       </div>
       {sortedProducts.length ? (
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {sortedProducts.map((product) => (
-            <Card key={product.id} className="container">
+            <Card key={product.id} className="h-full">
               <CardHeader>
                 <CardTitle>{product.name}</CardTitle>
               </CardHeader>
@@ -170,7 +170,7 @@ export default function Products() {
                   alt={product.name}
                   width={700}
                   height={600}
-                  className="w-[700px] 2xl:w-full 2xl:h-[30rem] rounded-md object-cover"
+                  className="h-56 w-full rounded-md object-cover sm:h-64 2xl:h-[30rem]"
                 />
                 <p className="mt-4 text-lg font-semibold">
                   ${product.price.toFixed(2)} per sq ft
@@ -218,11 +218,13 @@ function QuoteDialog({ slabId, slabName }: QuoteDialogProps) {
   const [status, setStatus] = useState({ type: "", message: "" });
 
   const formReset = (): void => {
-    formData.name = "";
-    formData.email = "";
-    formData.phone = "";
-    formData.message = "";
-    formData.honeypot = "";
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      honeypot: "",
+    });
   };
 
   const validateForm = (): boolean => {
@@ -287,13 +289,13 @@ function QuoteDialog({ slabId, slabName }: QuoteDialogProps) {
 
     setIsPending(true);
     try {
-      setTimeout(() => {
-        setStatus({
-          type: "success",
-          message: "Successfully sent message",
-        });
-        formReset();
-      }, 1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setStatus({
+        type: "success",
+        message: "Successfully sent message",
+      });
+      formReset();
+      setOpen(false);
     } catch (error) {
       setErrors({
         message: "Failed to send message. Please try again.",
@@ -304,15 +306,14 @@ function QuoteDialog({ slabId, slabName }: QuoteDialogProps) {
       });
     } finally {
       setIsPending(false);
-      setOpen(false);
     }
   };
 
   useEffect(() => {
     if (!open && status.type) {
-      (status.type = ""), (status.message = "");
+      setStatus({ type: "", message: "" });
     }
-  }, [open]);
+  }, [open, status.type]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

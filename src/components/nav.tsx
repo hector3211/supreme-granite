@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   GalleryHorizontalEnd,
   Home,
@@ -16,35 +16,34 @@ import {
 import { Button } from "./ui/button";
 
 const navItems = [
-  { name: "Home", href: "/", icon: <Home /> },
-  { name: "Products", href: "/products", icon: <Tag /> },
-  { name: "Gallery", href: "/gallery", icon: <GalleryHorizontalEnd /> },
-  { name: "About", href: "/#about", icon: <User /> },
-  { name: "Contact", href: "/#contact", icon: <Mail /> },
+  { name: "Home", href: "/", icon: Home },
+  { name: "Products", href: "/products", icon: Tag },
+  { name: "Gallery", href: "/gallery", icon: GalleryHorizontalEnd },
+  { name: "About", href: "/#about", icon: User },
+  { name: "Contact", href: "/#contact", icon: Mail },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const menuAriaLabel = useMemo(
+    () => (isOpen ? "Close navigation menu" : "Open navigation menu"),
+    [isOpen],
+  );
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const shouldScroll = scrollTop > 50;
-
-      if (shouldScroll !== hasScrolled) {
-        setHasScrolled(shouldScroll);
-      }
+      setHasScrolled(scrollTop > 50);
     };
 
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Cleanup listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [hasScrolled]);
+  }, []);
 
   return (
     <nav
@@ -61,7 +60,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
             <a href="/" className="text-2xl font-extrabold">
-              <h1>Supreme Granite</h1>
+              Supreme Granite
             </a>
           </div>
           <div className="hidden md:block">
@@ -80,18 +79,34 @@ export default function Navbar() {
           <div className="md:hidden">
             <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button size={"icon"} variant={"outline"}>
-                  <Menu />
+                <Button
+                  size={"icon"}
+                  variant={"outline"}
+                  className="size-11 rounded-full border-zinc-300 bg-white/90 shadow-sm"
+                  aria-label={menuAriaLabel}
+                >
+                  <Menu className="size-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-40" align="end">
+              <DropdownMenuContent
+                className="w-[calc(100vw-1rem)] max-w-xs rounded-xl border-zinc-200 bg-white/95 p-2 shadow-xl backdrop-blur"
+                align="end"
+              >
+                <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  Navigate
+                </p>
                 {navItems.map((item) => (
-                  <DropdownMenuItem key={item.name} asChild>
+                  <DropdownMenuItem
+                    key={item.name}
+                    asChild
+                    onSelect={() => setIsOpen(false)}
+                  >
                     <a
                       href={item.href}
-                      className="text-zinc-800 hover:text-zinc-900 cursor-pointer w-full"
+                      className="flex w-full items-center gap-3 rounded-md px-3 py-3 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
+                      onClick={() => setIsOpen(false)}
                     >
-                      {item.icon}
+                      <item.icon />
                       {item.name}
                     </a>
                   </DropdownMenuItem>

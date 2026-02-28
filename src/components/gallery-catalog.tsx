@@ -83,7 +83,7 @@ export default function GalleryCatalog() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-end p-4">
+      <div className="flex justify-start px-1 sm:justify-end">
         <Select
           onValueChange={(value) => {
             if (value === "all") {
@@ -93,7 +93,7 @@ export default function GalleryCatalog() {
             setSelectedCategory(value);
           }}
         >
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="h-11 w-full sm:w-[220px]">
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
           <SelectContent>
@@ -106,24 +106,24 @@ export default function GalleryCatalog() {
           </SelectContent>
         </Select>
       </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredProjects.map((project) => (
           <Dialog key={project.id}>
             <DialogTrigger asChild>
-              <div className="cursor-pointer group">
+              <button type="button" className="group text-left">
                 <div className="relative overflow-hidden rounded-lg">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-[500px] 2xl:w-full 2xl:h-[40rem] object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-110 2xl:h-[40rem]"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                    <p className="text-white text-lg font-semibold">
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/65 via-black/25 to-transparent p-4 opacity-100 transition-opacity duration-500 md:items-center md:justify-center md:bg-black/50 md:opacity-0 md:group-hover:opacity-100">
+                    <p className="text-base font-semibold text-white md:text-lg">
                       {project.title}
                     </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md xl:max-w-lg">
               <DialogHeader>

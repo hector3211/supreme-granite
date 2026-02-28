@@ -39,11 +39,13 @@ export default function ContactForm() {
   const [popUp, setPopUp] = useState(false);
 
   const formReset = (): void => {
-    formData.name = "";
-    formData.email = "";
-    formData.phone = "";
-    formData.message = "";
-    formData.honeypot = "";
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      honeypot: "",
+    });
   };
 
   const validateForm = (): boolean => {
@@ -108,14 +110,13 @@ export default function ContactForm() {
 
     setIsPending(true);
     try {
-      setTimeout(() => {
-        setStatus({
-          type: "success",
-          message: "Message sent!",
-        });
-        formReset();
-        setPopUp(true);
-      }, 1000);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setStatus({
+        type: "success",
+        message: "Message sent!",
+      });
+      formReset();
+      setPopUp(true);
     } catch (error) {
       setErrors({
         message: "Failed to send message. Please try again.",
@@ -132,8 +133,7 @@ export default function ContactForm() {
   useEffect(() => {
     if (popUp) {
       const timmer = setTimeout(() => {
-        status.type = "";
-        status.message = "";
+        setStatus({ type: "", message: "" });
         setPopUp(false);
       }, 3000);
       return () => clearTimeout(timmer);
