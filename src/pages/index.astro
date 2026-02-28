@@ -1,6 +1,5 @@
 ---
 import Hero from "@/components/hero.astro";
-import SalesBanner from "@/components/banner.tsx";
 import About from "@/components/about.astro";
 import ProcessSection from "@/components/process.tsx";
 import GallerySection from "@/components/gallery.tsx";
@@ -14,7 +13,6 @@ import ContactForm from "@/components/contactForm.tsx";
 <Layout>
     <main>
         <Hero />
-        <SalesBanner client:load />
         <About />
         <ProcessSection client:load />
         <GallerySection client:load />

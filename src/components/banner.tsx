@@ -12,79 +12,42 @@ export default function SalesBanner({
   expirationDays = 14,
 }: HolidaySalesBannerProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const storageKey = `${cookieName}-dismissed-at`;
 
   useEffect(() => {
-    // Check banner visibility status via API
-    const checkBannerVisibility = async () => {
-      try {
-        const response = await fetch("/api/banner", {
-          method: "GET",
-          credentials: "include",
-        });
+    const dismissedAt = window.localStorage.getItem(storageKey);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch banner status");
-        }
-
-        const data = await response.json();
-        setIsVisible(data.showBanner);
-      } catch (error) {
-        console.error("Error checking banner status:", error);
-        // Fallback to showing banner if API call fails
-        setIsVisible(true);
-      }
-    };
-
-    checkBannerVisibility();
-  }, []);
-
-  const handleDismiss = async () => {
-    try {
-      const response = await fetch("/api/banner", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          action: "dismiss",
-          cookieName,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to dismiss banner");
-      }
-
-      setIsVisible(false);
-    } catch (error) {
-      console.error("Error dismissing banner:", error);
+    if (!dismissedAt) {
+      setIsVisible(true);
+      return;
     }
+
+    const dismissedAtMs = Number(dismissedAt);
+    if (Number.isNaN(dismissedAtMs)) {
+      window.localStorage.removeItem(storageKey);
+      setIsVisible(true);
+      return;
+    }
+
+    const expirationMs = expirationDays * 24 * 60 * 60 * 1000;
+    const isExpired = Date.now() - dismissedAtMs >= expirationMs;
+
+    if (isExpired) {
+      window.localStorage.removeItem(storageKey);
+      setIsVisible(true);
+      return;
+    }
+
+    setIsVisible(false);
+  }, [expirationDays, storageKey]);
+
+  const handleDismiss = () => {
+    window.localStorage.setItem(storageKey, String(Date.now()));
+    setIsVisible(false);
   };
 
-  const handleBookNow = async () => {
-    try {
-      const response = await fetch("/api/banner", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          action: "book",
-          cookieName,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to process booking");
-      }
-
-      // Redirect to booking page
-      window.location.href = "#contact";
-    } catch (error) {
-      console.error("Error booking:", error);
-    }
+  const handleBookNow = () => {
+    window.location.href = "/#contact";
   };
 
   if (!isVisible) return null;
