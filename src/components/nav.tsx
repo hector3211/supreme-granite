@@ -8,11 +8,12 @@ import {
   User,
 } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 
 const navItems = [
@@ -48,7 +49,7 @@ export default function Navbar() {
   return (
     <nav
       className={`
-        fixed top-0 z-50 w-full p-2 border-b transition-all duration-300
+        fixed top-0 z-[120] w-full p-2 border-b transition-all duration-300
         ${
           hasScrolled
             ? "bg-white/90 backdrop-blur-md shadow-sm"
@@ -77,8 +78,8 @@ export default function Navbar() {
             </div>
           </div>
           <div className="md:hidden">
-            <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-              <DropdownMenuTrigger asChild>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
                 <Button
                   size={"icon"}
                   variant={"outline"}
@@ -87,21 +88,17 @@ export default function Navbar() {
                 >
                   <Menu className="size-5" />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[calc(100vw-1rem)] max-w-xs rounded-xl border-zinc-200 bg-white/95 p-2 shadow-xl backdrop-blur"
-                align="end"
-              >
-                <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                  Navigate
-                </p>
-                {navItems.map((item) => (
-                  <DropdownMenuItem
-                    key={item.name}
-                    asChild
-                    onSelect={() => setIsOpen(false)}
-                  >
+              </DialogTrigger>
+              <DialogContent className="top-20 z-[140] w-[calc(100vw-1rem)] max-w-sm translate-x-[-50%] translate-y-0 rounded-xl border-zinc-200 bg-white p-2 shadow-xl">
+                <DialogHeader className="px-3 pb-1 pt-2 text-left">
+                  <DialogTitle className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+                    Navigate
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col gap-1 pb-2">
+                  {navItems.map((item) => (
                     <a
+                      key={item.name}
                       href={item.href}
                       className="flex w-full items-center gap-3 rounded-md px-3 py-3 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
                       onClick={() => setIsOpen(false)}
@@ -109,10 +106,10 @@ export default function Navbar() {
                       <item.icon />
                       {item.name}
                     </a>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
