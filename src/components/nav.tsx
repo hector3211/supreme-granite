@@ -6,8 +6,14 @@ import {
   Menu,
   Tag,
   User,
-  X,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 
 const navItems = [
@@ -38,17 +44,6 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -83,52 +78,41 @@ export default function Navbar() {
             </div>
           </div>
           <div className="md:hidden">
-            <Button
-              size={"icon"}
-              variant={"outline"}
-              className="size-11 rounded-full border-zinc-300 bg-white/90 shadow-sm"
-              aria-label={menuAriaLabel}
-              onClick={() => setIsOpen((prev) => !prev)}
-              aria-expanded={isOpen}
-              aria-controls="mobile-nav-menu"
-            >
-              {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </Button>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  size={"icon"}
+                  variant={"outline"}
+                  className="size-11 rounded-full border-zinc-300 bg-white/90 shadow-sm"
+                  aria-label={menuAriaLabel}
+                >
+                  <Menu className="size-5" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="top-20 z-[140] w-[calc(100vw-1rem)] max-w-sm translate-x-[-50%] translate-y-0 rounded-xl border-zinc-200 bg-white p-2 shadow-xl">
+                <DialogHeader className="px-3 pb-1 pt-2 text-left">
+                  <DialogTitle className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+                    Navigate
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col gap-1 pb-2">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="flex w-full items-center gap-3 rounded-md px-3 py-3 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <item.icon />
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
-
-      {isOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Close menu overlay"
-            className="fixed inset-0 z-[125] bg-black/35 backdrop-blur-[1px] md:hidden"
-            onClick={() => setIsOpen(false)}
-          />
-          <div
-            id="mobile-nav-menu"
-            className="absolute left-2 right-2 top-[4.8rem] z-[130] rounded-xl border border-zinc-200 bg-white p-2 shadow-xl md:hidden"
-          >
-            <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-              Navigate
-            </p>
-            <div className="flex flex-col gap-1 pb-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="flex w-full items-center gap-3 rounded-md px-3 py-3 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <item.icon />
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
     </nav>
   );
 }
